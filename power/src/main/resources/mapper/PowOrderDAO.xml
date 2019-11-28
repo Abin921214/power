@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzhl.power.mapper.PowOrderDAO">
+  <resultMap id="BaseResultMap" type="com.jzhl.power.model.PowOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_pay" jdbcType="VARCHAR" property="orderPay" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="order_way" jdbcType="CHAR" property="orderWay" />
+    <result column="device_id" jdbcType="INTEGER" property="deviceId" />
+    <result column="device_port_id" jdbcType="INTEGER" property="devicePortId" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="he_id" jdbcType="INTEGER" property="heId" />
+    <result column="dev_district_id" jdbcType="INTEGER" property="devDistrictId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_type" jdbcType="CHAR" property="userType" />
+    <result column="card_id" jdbcType="INTEGER" property="cardId" />
+    <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="pay_fee" jdbcType="DECIMAL" property="payFee" />
+    <result column="return_fee" jdbcType="DECIMAL" property="returnFee" />
+    <result column="unit_fee" jdbcType="DECIMAL" property="unitFee" />
+    <result column="unit_min" jdbcType="INTEGER" property="unitMin" />
+    <result column="return_fee_status" jdbcType="CHAR" property="returnFeeStatus" />
+    <result column="self_help_close_status" jdbcType="CHAR" property="selfHelpCloseStatus" />
+    <result column="order_status" jdbcType="CHAR" property="orderStatus" />
+    <result column="end_status" jdbcType="CHAR" property="endStatus" />
+    <result column="sum_power" jdbcType="VARCHAR" property="sumPower" />
+    <result column="reserve_one" jdbcType="VARCHAR" property="reserveOne" />
+    <result column="reserve_two" jdbcType="VARCHAR" property="reserveTwo" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="build_userid" jdbcType="INTEGER" property="buildUserid" />
+    <result column="build_time" jdbcType="TIMESTAMP" property="buildTime" />
+    <result column="update_userid" jdbcType="INTEGER" property="updateUserid" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, order_pay, order_no, order_way, device_id, device_port_id, port, company_id, 
+    he_id, dev_district_id, user_id, user_type, card_id, card_no, start_time, end_time, 
+    pay_fee, return_fee, unit_fee, unit_min, return_fee_status, self_help_close_status, 
+    order_status, end_status, sum_power, reserve_one, reserve_two, `status`, del_flag, 
+    build_userid, build_time, update_userid, update_time, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.jzhl.power.model.PowOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pow_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pow_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pow_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jzhl.power.model.PowOrderExample">
+    delete from pow_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jzhl.power.model.PowOrder">
+    insert into pow_order (id, order_pay, order_no, 
+      order_way, device_id, device_port_id, 
+      port, company_id, he_id, 
+      dev_district_id, user_id, user_type, 
+      card_id, card_no, start_time, 
+      end_time, pay_fee, return_fee, 
+      unit_fee, unit_min, return_fee_status, 
+      self_help_close_status, order_status, end_status, 
+      sum_power, reserve_one, reserve_two, 
+      `status`, del_flag, build_userid, 
+      build_time, update_userid, update_time, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{orderPay,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{orderWay,jdbcType=CHAR}, #{deviceId,jdbcType=INTEGER}, #{devicePortId,jdbcType=INTEGER}, 
+      #{port,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, #{heId,jdbcType=INTEGER}, 
+      #{devDistrictId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userType,jdbcType=CHAR}, 
+      #{cardId,jdbcType=INTEGER}, #{cardNo,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{payFee,jdbcType=DECIMAL}, #{returnFee,jdbcType=DECIMAL}, 
+      #{unitFee,jdbcType=DECIMAL}, #{unitMin,jdbcType=INTEGER}, #{returnFeeStatus,jdbcType=CHAR}, 
+      #{selfHelpCloseStatus,jdbcType=CHAR}, #{orderStatus,jdbcType=CHAR}, #{endStatus,jdbcType=CHAR}, 
+      #{sumPower,jdbcType=VARCHAR}, #{reserveOne,jdbcType=VARCHAR}, #{reserveTwo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{delFlag,jdbcType=CHAR}, #{buildUserid,jdbcType=INTEGER}, 
+      #{buildTime,jdbcType=TIMESTAMP}, #{updateUserid,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jzhl.power.model.PowOrder">
+    insert into pow_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderPay != null">
+        order_pay,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="orderWay != null">
+        order_way,
+      </if>
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="devicePortId != null">
+        device_port_id,
+      </if>
+      <if test="port != null">
+        port,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="heId != null">
+        he_id,
+      </if>
+      <if test="devDistrictId != null">
+        dev_district_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="cardNo != null">
+        card_no,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="payFee != null">
+        pay_fee,
+      </if>
+      <if test="returnFee != null">
+        return_fee,
+      </if>
+      <if test="unitFee != null">
+        unit_fee,
+      </if>
+      <if test="unitMin != null">
+        unit_min,
+      </if>
+      <if test="returnFeeStatus != null">
+        return_fee_status,
+      </if>
+      <if test="selfHelpCloseStatus != null">
+        self_help_close_status,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="endStatus != null">
+        end_status,
+      </if>
+      <if test="sumPower != null">
+        sum_power,
+      </if>
+      <if test="reserveOne != null">
+        reserve_one,
+      </if>
+      <if test="reserveTwo != null">
+        reserve_two,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="buildUserid != null">
+        build_userid,
+      </if>
+      <if test="buildTime != null">
+        build_time,
+      </if>
+      <if test="updateUserid != null">
+        update_userid,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderPay != null">
+        #{orderPay,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderWay != null">
+        #{orderWay,jdbcType=CHAR},
+      </if>
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePortId != null">
+        #{devicePortId,jdbcType=INTEGER},
+      </if>
+      <if test="port != null">
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="heId != null">
+        #{heId,jdbcType=INTEGER},
+      </if>
+      <if test="devDistrictId != null">
+        #{devDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=CHAR},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payFee != null">
+        #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="returnFee != null">
+        #{returnFee,jdbcType=DECIMAL},
+      </if>
+      <if test="unitFee != null">
+        #{unitFee,jdbcType=DECIMAL},
+      </if>
+      <if test="unitMin != null">
+        #{unitMin,jdbcType=INTEGER},
+      </if>
+      <if test="returnFeeStatus != null">
+        #{returnFeeStatus,jdbcType=CHAR},
+      </if>
+      <if test="selfHelpCloseStatus != null">
+        #{selfHelpCloseStatus,jdbcType=CHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="endStatus != null">
+        #{endStatus,jdbcType=CHAR},
+      </if>
+      <if test="sumPower != null">
+        #{sumPower,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveOne != null">
+        #{reserveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveTwo != null">
+        #{reserveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="buildUserid != null">
+        #{buildUserid,jdbcType=INTEGER},
+      </if>
+      <if test="buildTime != null">
+        #{buildTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jzhl.power.model.PowOrderExample" resultType="java.lang.Long">
+    select count(*) from pow_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pow_order
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderPay != null">
+        order_pay = #{record.orderPay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null">
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderWay != null">
+        order_way = #{record.orderWay,jdbcType=CHAR},
+      </if>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.devicePortId != null">
+        device_port_id = #{record.devicePortId,jdbcType=INTEGER},
+      </if>
+      <if test="record.port != null">
+        port = #{record.port,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyId != null">
+        company_id = #{record.companyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.heId != null">
+        he_id = #{record.heId,jdbcType=INTEGER},
+      </if>
+      <if test="record.devDistrictId != null">
+        dev_district_id = #{record.devDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=CHAR},
+      </if>
+      <if test="record.cardId != null">
+        card_id = #{record.cardId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardNo != null">
+        card_no = #{record.cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payFee != null">
+        pay_fee = #{record.payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.returnFee != null">
+        return_fee = #{record.returnFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unitFee != null">
+        unit_fee = #{record.unitFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unitMin != null">
+        unit_min = #{record.unitMin,jdbcType=INTEGER},
+      </if>
+      <if test="record.returnFeeStatus != null">
+        return_fee_status = #{record.returnFeeStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.selfHelpCloseStatus != null">
+        self_help_close_status = #{record.selfHelpCloseStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.endStatus != null">
+        end_status = #{record.endStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.sumPower != null">
+        sum_power = #{record.sumPower,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserveOne != null">
+        reserve_one = #{record.reserveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserveTwo != null">
+        reserve_two = #{record.reserveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.buildUserid != null">
+        build_userid = #{record.buildUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildTime != null">
+        build_time = #{record.buildTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserid != null">
+        update_userid = #{record.updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pow_order
+    set id = #{record.id,jdbcType=INTEGER},
+      order_pay = #{record.orderPay,jdbcType=VARCHAR},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      order_way = #{record.orderWay,jdbcType=CHAR},
+      device_id = #{record.deviceId,jdbcType=INTEGER},
+      device_port_id = #{record.devicePortId,jdbcType=INTEGER},
+      port = #{record.port,jdbcType=INTEGER},
+      company_id = #{record.companyId,jdbcType=INTEGER},
+      he_id = #{record.heId,jdbcType=INTEGER},
+      dev_district_id = #{record.devDistrictId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_type = #{record.userType,jdbcType=CHAR},
+      card_id = #{record.cardId,jdbcType=INTEGER},
+      card_no = #{record.cardNo,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      pay_fee = #{record.payFee,jdbcType=DECIMAL},
+      return_fee = #{record.returnFee,jdbcType=DECIMAL},
+      unit_fee = #{record.unitFee,jdbcType=DECIMAL},
+      unit_min = #{record.unitMin,jdbcType=INTEGER},
+      return_fee_status = #{record.returnFeeStatus,jdbcType=CHAR},
+      self_help_close_status = #{record.selfHelpCloseStatus,jdbcType=CHAR},
+      order_status = #{record.orderStatus,jdbcType=CHAR},
+      end_status = #{record.endStatus,jdbcType=CHAR},
+      sum_power = #{record.sumPower,jdbcType=VARCHAR},
+      reserve_one = #{record.reserveOne,jdbcType=VARCHAR},
+      reserve_two = #{record.reserveTwo,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=CHAR},
+      del_flag = #{record.delFlag,jdbcType=CHAR},
+      build_userid = #{record.buildUserid,jdbcType=INTEGER},
+      build_time = #{record.buildTime,jdbcType=TIMESTAMP},
+      update_userid = #{record.updateUserid,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jzhl.power.model.PowOrder">
+    update pow_order
+    <set>
+      <if test="orderPay != null">
+        order_pay = #{orderPay,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderWay != null">
+        order_way = #{orderWay,jdbcType=CHAR},
+      </if>
+      <if test="deviceId != null">
+        device_id = #{deviceId,jdbcType=INTEGER},
+      </if>
+      <if test="devicePortId != null">
+        device_port_id = #{devicePortId,jdbcType=INTEGER},
+      </if>
+      <if test="port != null">
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="heId != null">
+        he_id = #{heId,jdbcType=INTEGER},
+      </if>
+      <if test="devDistrictId != null">
+        dev_district_id = #{devDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=CHAR},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="cardNo != null">
+        card_no = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payFee != null">
+        pay_fee = #{payFee,jdbcType=DECIMAL},
+      </if>
+      <if test="returnFee != null">
+        return_fee = #{returnFee,jdbcType=DECIMAL},
+      </if>
+      <if test="unitFee != null">
+        unit_fee = #{unitFee,jdbcType=DECIMAL},
+      </if>
+      <if test="unitMin != null">
+        unit_min = #{unitMin,jdbcType=INTEGER},
+      </if>
+      <if test="returnFeeStatus != null">
+        return_fee_status = #{returnFeeStatus,jdbcType=CHAR},
+      </if>
+      <if test="selfHelpCloseStatus != null">
+        self_help_close_status = #{selfHelpCloseStatus,jdbcType=CHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="endStatus != null">
+        end_status = #{endStatus,jdbcType=CHAR},
+      </if>
+      <if test="sumPower != null">
+        sum_power = #{sumPower,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveOne != null">
+        reserve_one = #{reserveOne,jdbcType=VARCHAR},
+      </if>
+      <if test="reserveTwo != null">
+        reserve_two = #{reserveTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=CHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="buildUserid != null">
+        build_userid = #{buildUserid,jdbcType=INTEGER},
+      </if>
+      <if test="buildTime != null">
+        build_time = #{buildTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        update_userid = #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jzhl.power.model.PowOrder">
+    update pow_order
+    set order_pay = #{orderPay,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      order_way = #{orderWay,jdbcType=CHAR},
+      device_id = #{deviceId,jdbcType=INTEGER},
+      device_port_id = #{devicePortId,jdbcType=INTEGER},
+      port = #{port,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER},
+      he_id = #{heId,jdbcType=INTEGER},
+      dev_district_id = #{devDistrictId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_type = #{userType,jdbcType=CHAR},
+      card_id = #{cardId,jdbcType=INTEGER},
+      card_no = #{cardNo,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      pay_fee = #{payFee,jdbcType=DECIMAL},
+      return_fee = #{returnFee,jdbcType=DECIMAL},
+      unit_fee = #{unitFee,jdbcType=DECIMAL},
+      unit_min = #{unitMin,jdbcType=INTEGER},
+      return_fee_status = #{returnFeeStatus,jdbcType=CHAR},
+      self_help_close_status = #{selfHelpCloseStatus,jdbcType=CHAR},
+      order_status = #{orderStatus,jdbcType=CHAR},
+      end_status = #{endStatus,jdbcType=CHAR},
+      sum_power = #{sumPower,jdbcType=VARCHAR},
+      reserve_one = #{reserveOne,jdbcType=VARCHAR},
+      reserve_two = #{reserveTwo,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=CHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      build_userid = #{buildUserid,jdbcType=INTEGER},
+      build_time = #{buildTime,jdbcType=TIMESTAMP},
+      update_userid = #{updateUserid,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
